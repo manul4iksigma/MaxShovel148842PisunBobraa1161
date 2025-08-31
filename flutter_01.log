@@ -1,0 +1,60 @@
+Flutter crash report.
+Please report a bug at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter run -d chrome
+
+## exception
+
+DartDevelopmentServiceException: DartDevelopmentServiceException: Failed to start Dart Development Service
+
+```
+```
+
+## flutter doctor
+
+```
+[32m[✓][39m Flutter (Channel stable, 3.35.2, on Microsoft Windows [Version 10.0.26100.4946], locale ru-RU) [9,7s]
+    [32m•[39m Flutter version 3.35.2 on channel stable at C:\dev\flutter
+    [32m•[39m Upstream repository https://github.com/flutter/flutter.git
+    [32m•[39m Framework revision 05db968908 (6 days ago), 2025-08-25 10:21:35 -0700
+    [32m•[39m Engine revision a8bfdfc394
+    [32m•[39m Dart version 3.9.0
+    [32m•[39m DevTools version 2.48.0
+    [32m•[39m Feature flags: enable-web, enable-linux-desktop, enable-macos-desktop, enable-windows-desktop, enable-android,
+      enable-ios, cli-animations, enable-lldb-debugging
+
+[32m[✓][39m Windows Version (Windows 11 or higher, 24H2, 2009) [13,7s]
+
+[31m[✗][39m Android toolchain - develop for Android devices [10,0s]
+    [31m✗[39m Unable to locate Android SDK.
+      Install Android Studio from: https://developer.android.com/studio/index.html
+      On first launch it will assist you in installing the Android SDK components.
+      (or visit https://flutter.dev/to/windows-android-setup for detailed instructions).
+      If the Android SDK has been installed to a custom location, please use
+      `flutter config --android-sdk` to update to that location.
+
+
+[32m[✓][39m Chrome - develop for the web [9,5s]
+    [32m•[39m Chrome at C:\Program Files\Google\Chrome\Application\chrome.exe
+
+[33m[!][39m Visual Studio - develop Windows apps (Visual Studio Community 2022 17.14.13 (August 2025)) [9,5s]
+    [32m•[39m Visual Studio at C:\Program Files\Microsoft Visual Studio\2022\Community
+    [32m•[39m Visual Studio Community 2022 version 17.14.36414.22
+    [31m✗[39m The current Visual Studio installation is incomplete.
+      Please use Visual Studio Installer to complete the installation or reinstall Visual Studio.
+
+[33m[!][39m Android Studio (not installed) [6ms]
+    [32m•[39m Android Studio not found; download from https://developer.android.com/studio/index.html
+      (or visit https://flutter.dev/to/windows-android-setup for detailed instructions).
+
+[32m[✓][39m Connected device (2 available) [505ms]
+    [32m•[39m Windows (desktop) • windows • windows-x64    • Microsoft Windows [Version 10.0.26100.4946]
+    [32m•[39m Chrome (web)      • chrome  • web-javascript • Google Chrome 139.0.7258.155
+
+[32m[✓][39m Network resources [1 274ms]
+    [32m•[39m All expected network resources are available.
+
+[33m![39m Doctor found issues in 3 categories.
+```
