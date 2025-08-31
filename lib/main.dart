@@ -5,6 +5,13 @@ import 'screens/calls_screen.dart';
 import 'screens/settings_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Добавляем обработку ошибок
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.presentError(details);
+  };
+  
   runApp(const ChatApp());
 }
 

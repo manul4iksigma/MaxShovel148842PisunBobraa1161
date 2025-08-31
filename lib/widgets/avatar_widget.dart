@@ -17,20 +17,48 @@ class AvatarWidget extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        image: DecorationImage(
-          image: AssetImage(_getAvatarImage()),
-          fit: BoxFit.cover,
+        gradient: _getAvatarGradient(),
+      ),
+      child: Center(
+        child: Text(
+          _getInitials(),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: size * 0.4,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
   }
 
-  String _getAvatarImage() {
+  String _getInitials() {
     if (name.contains('MAX') && !name.contains('GigaChat')) {
-      return 'assets/images/max_avatar.png';
+      return 'M';
     } else if (name.contains('GigaChat')) {
-      return 'assets/images/gigachat_avatar.png';
+      return 'G';
     }
-    return 'assets/images/default_avatar.png';
+    return name.isNotEmpty ? name[0].toUpperCase() : '?';
+  }
+
+  LinearGradient _getAvatarGradient() {
+    if (name.contains('MAX') && !name.contains('GigaChat')) {
+      return const LinearGradient(
+        colors: [Color(0xFF6A4C93), Color(0xFF8B5CF6)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      );
+    } else if (name.contains('GigaChat')) {
+      return const LinearGradient(
+        colors: [Color(0xFF1F2937), Color(0xFF374151)],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+      );
+    }
+    return const LinearGradient(
+      colors: [Colors.blue, Colors.blueAccent],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+    );
   }
 }
