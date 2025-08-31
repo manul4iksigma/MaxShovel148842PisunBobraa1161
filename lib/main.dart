@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'screens/chats_screen.dart';
-import 'screens/contacts_screen.dart';
-import 'screens/calls_screen.dart';
-import 'screens/settings_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,16 +8,17 @@ void main() {
     FlutterError.presentError(details);
   };
   
-  runApp(const ChatApp());
+  runApp(const SimpleChatApp());
 }
 
-class ChatApp extends StatelessWidget {
-  const ChatApp({super.key});
+class SimpleChatApp extends StatelessWidget {
+  const SimpleChatApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Чаты',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         brightness: Brightness.dark,
         primarySwatch: Colors.blue,
@@ -31,42 +28,31 @@ class ChatApp extends StatelessWidget {
           foregroundColor: Colors.white,
           elevation: 0,
         ),
-        cardTheme: const CardThemeData(
-          color: Color(0xFF2A2A2A),
-        ),
-        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-          backgroundColor: Color(0xFF1E1E1E),
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.grey,
-          type: BottomNavigationBarType.fixed,
-        ),
       ),
-      home: const MainScreen(),
+      home: const SimpleMainScreen(),
     );
   }
 }
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class SimpleMainScreen extends StatefulWidget {
+  const SimpleMainScreen({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<SimpleMainScreen> createState() => _SimpleMainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 2; // Начинаем с вкладки "Чаты"
-
-  final List<Widget> _screens = [
-    const ContactsScreen(),
-    const CallsScreen(),
-    const ChatsScreen(),
-    const SettingsScreen(),
-  ];
+class _SimpleMainScreenState extends State<SimpleMainScreen> {
+  int _currentIndex = 2;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_currentIndex],
+      backgroundColor: const Color(0xFF121212),
+      appBar: AppBar(
+        title: const Text('Чаты'),
+        backgroundColor: const Color(0xFF1E1E1E),
+      ),
+      body: _buildBody(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
@@ -74,53 +60,138 @@ class _MainScreenState extends State<MainScreen> {
             _currentIndex = index;
           });
         },
-        items: [
-          const BottomNavigationBarItem(
+        backgroundColor: const Color(0xFF1E1E1E),
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.grey,
+        type: BottomNavigationBarType.fixed,
+        items: const [
+          BottomNavigationBarItem(
             icon: Icon(Icons.people),
             label: 'Контакты',
           ),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.call),
             label: 'Звонки',
           ),
           BottomNavigationBarItem(
-            icon: Stack(
-              children: [
-                const Icon(Icons.chat),
-                if (_currentIndex == 2)
-                  Positioned(
-                    right: 0,
-                    top: 0,
-                    child: Container(
-                      padding: const EdgeInsets.all(2),
-                      decoration: const BoxDecoration(
-                        color: Colors.red,
-                        shape: BoxShape.circle,
-                      ),
-                      constraints: const BoxConstraints(
-                        minWidth: 16,
-                        minHeight: 16,
-                      ),
-                      child: const Text(
-                        '1',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 10,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-              ],
-            ),
+            icon: Icon(Icons.chat),
             label: 'Чаты',
           ),
-          const BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Настройки',
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildBody() {
+    switch (_currentIndex) {
+      case 0:
+        return const Center(
+          child: Text(
+            'Контакты',
+            style: TextStyle(color: Colors.white, fontSize: 24),
+          ),
+        );
+      case 1:
+        return const Center(
+          child: Text(
+            'Звонки',
+            style: TextStyle(color: Colors.white, fontSize: 24),
+          ),
+        );
+      case 2:
+        return _buildChatsScreen();
+      case 3:
+        return const Center(
+          child: Text(
+            'Настройки',
+            style: TextStyle(color: Colors.white, fontSize: 24),
+          ),
+        );
+      default:
+        return const Center(
+          child: Text(
+            'Ошибка',
+            style: TextStyle(color: Colors.white, fontSize: 24),
+          ),
+        );
+    }
+  }
+
+  Widget _buildChatsScreen() {
+    return Column(
+      children: [
+        // Простая карточка
+        Container(
+          margin: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: const Color(0xFF2A2A2A),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: const Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.blue,
+                child: Text('M', style: TextStyle(color: Colors.white)),
+              ),
+              SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'MAX',
+                      style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'Вход с нового устройства...',
+                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        
+        // Вторая карточка
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: const Color(0xFF2A2A2A),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: const Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.grey,
+                child: Text('G', style: TextStyle(color: Colors.white)),
+              ),
+              SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'GigaChat • MAX',
+                      style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      'Вот что я умею...',
+                      style: TextStyle(color: Colors.grey, fontSize: 14),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
